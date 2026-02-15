@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NazoGram | Official Website</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        nazo: {
+                            black: '#050505',
+                            dark: '#0a0f14',
+                            primary: '#00ffcc', // Cyan neon
+                            secondary: '#bd00ff', // Purple neon
+                            dim: '#4a5568',
+                            text: '#e2e8f0'
+                        }
+                    },
+                    fontFamily: {
+                        mono: ['"Share Tech Mono"', 'monospace'],
+                        sans: ['"Zen Kaku Gothic New"', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'glitch': 'glitch 1s linear infinite',
+                    },
+                    keyframes: {
+                        glitch: {
+                            '2%, 64%': { transform: 'translate(2px,0) skew(0deg)' },
+                            '4%, 60%': { transform: 'translate(-2px,0) skew(0deg)' },
+                            '62%': { transform: 'translate(0,0) skew(5deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0f14; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #00ffcc; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #bd00ff; 
+        }
+
+        /* Utilities */
+        .neon-text {
+            text-shadow: 0 0 5px rgba(0, 255, 204, 0.5), 0 0 10px rgba(0, 255, 204, 0.3);
+        }
+        .neon-border {
+            box-shadow: 0 0 5px rgba(0, 255, 204, 0.5), inset 0 0 5px rgba(0, 255, 204, 0.1);
+        }
+        
+        /* Loader */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: opacity 0.8s ease-out;
+        }
+        .loader-bar {
+            width: 200px;
+            height: 2px;
+            background: #333;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .loader-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: #00ffcc;
+            width: 0%;
+            transition: width 0.2s;
+        }
+
+        /* Glitch Effect Class */
+        .glitch-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        .glitch-wrapper::before,
+        .glitch-wrapper::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #050505;
+        }
+        .glitch-wrapper::before {
+            left: 2px;
+            text-shadow: -1px 0 #bd00ff;
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+        .glitch-wrapper::after {
+            left: -2px;
+            text-shadow: -1px 0 #00ffcc;
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim 2.5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(11px, 9999px, 89px, 0); }
+            20% { clip: rect(86px, 9999px, 15px, 0); }
+            40% { clip: rect(32px, 9999px, 128px, 0); }
+            60% { clip: rect(100px, 9999px, 2px, 0); }
+            80% { clip: rect(54px, 9999px, 78px, 0); }
+            100% { clip: rect(14px, 9999px, 66px, 0); }
+        }
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(65px, 9999px, 100px, 0); }
+            20% { clip: rect(12px, 9999px, 4px, 0); }
+            40% { clip: rect(98px, 9999px, 65px, 0); }
+            60% { clip: rect(23px, 9999px, 85px, 0); }
+            80% { clip: rect(4px, 9999px, 12px, 0); }
+            100% { clip: rect(76px, 9999px, 43px, 0); }
+        }
+
+        /* Card Hover */
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px -10px rgba(0, 255, 204, 0.3);
+            border-color: #00ffcc;
+        }
+
+        /* Terminal Input Cursor */
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2em;
+            background-color: #00ffcc;
+            animation: blink 1s step-end infinite;
+            vertical-align: text-bottom;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-nazo-primary selection:text-black">
+
+    <!-- Loading Screen -->
+    <div id="loader">
+        <div class="font-mono text-nazo-primary text-xl mb-4">INITIALIZING SYSTEM...</div>
+        <div class="loader-bar">
+            <div class="loader-progress" id="loader-progress"></div>
+        </div>
+        <div class="font-mono text-nazo-dim text-xs mt-2" id="loader-text">Loading Assets</div>
+    </div>
+
+    <!-- Background Canvas -->
+    <canvas id="bgCanvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-nazo-black/80 backdrop-blur-md border-b border-nazo-dim/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0 cursor-pointer group" onclick="window.scrollTo(0,0)">
+                    <span class="font-mono text-2xl font-bold text-white group-hover:text-nazo-primary transition-colors">&lt;NazoGram/&gt;</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="font-mono text-sm hover:text-nazo-primary transition-colors text-white px-3 py-2">HOME</a>
+                        <a href="#about" class="font-mono text-sm hover:text-nazo-primary transition-colors text-nazo-dim px-3 py-2">ABOUT</a>
+                        <a href="#creators" class="font-mono text-sm hover:text-nazo-primary transition-colors text-nazo-dim px-3 py-2">CREATORS</a>
+                        <a href="#contents" class="font-mono text-sm hover:text-nazo-primary transition-colors text-nazo-dim px-3 py-2">CONTENTS</a>
+                        <a href="#contact" class="font-mono text-sm hover:text-nazo-primary transition-colors text-nazo-dim px-3 py-2">CONTACT</a>
+                    </div>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" id="mobile-menu-btn" class="inline-flex items-center justify-center p-2 rounded-md text-nazo-primary hover:bg-nazo-dark focus:outline-none">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-nazo-black border-b border-nazo-primary/20" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="text-white block px-3 py-2 rounded-md text-base font-medium font-mono">HOME</a>
+                <a href="#about" class="text-gray-300 hover:text-nazo-primary block px-3 py-2 rounded-md text-base font-medium font-mono">ABOUT</a>
+                <a href="#creators" class="text-gray-300 hover:text-nazo-primary block px-3 py-2 rounded-md text-base font-medium font-mono">CREATORS</a>
+                <a href="#contents" class="text-gray-300 hover:text-nazo-primary block px-3 py-2 rounded-md text-base font-medium font-mono">CONTENTS</a>
+                <a href="#contact" class="text-gray-300 hover:text-nazo-primary block px-3 py-2 rounded-md text-base font-medium font-mono">CONTACT</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HOME Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="text-center z-10 px-4">
+            <h2 class="font-mono text-nazo-primary text-sm md:text-lg mb-4 tracking-widest scramble-target">SYSTEM_STATUS: ONLINE</h2>
+            <h1 class="text-5xl md:text-8xl font-bold text-white mb-6 tracking-tighter glitch-wrapper" data-text="NAZOGRAM">
+                NAZOGRAM
+            </h1>
+            <p class="mt-4 max-w-2xl mx-auto text-sm md:text-xl text-nazo-dim font-mono">
+                Code the Mystery. Decode the Logic.<br>
+                <span class="text-white">謎解き</span> × <span class="text-nazo-primary">プログラム</span>
+            </p>
+            <div class="mt-10">
+                <a href="#contents" class="inline-block px-8 py-3 border border-nazo-primary text-nazo-primary font-mono hover:bg-nazo-primary hover:text-black transition-all duration-300 neon-border">
+                    START_PROTOCOL()
+                </a>
+            </div>
+        </div>
+        
+        <!-- Decoration elements -->
+        <div class="absolute bottom-10 left-10 font-mono text-xs text-nazo-dim hidden md:block">
+            COORD: 35.6895° N, 139.6917° E<br>
+            SESSION_ID: <span id="session-id">LOADING...</span>
+        </div>
+    </section>
+
+    <!-- ABOUT Section -->
+    <section id="about" class="py-24 bg-nazo-dark relative border-t border-nazo-dim/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
+                <div class="mb-12 lg:mb-0">
+                    <h2 class="text-3xl font-bold text-white mb-6 flex items-center">
+                        <span class="text-nazo-primary mr-2">01.</span> <span class="scramble-target">ABOUT_US</span>
+                    </h2>
+                    <div class="prose prose-invert">
+                        <p class="text-gray-400 mb-4 leading-relaxed">
+                            NazoGramは、従来の謎解きに「プログラミング的思考」を融合させたクリエイター集団です。
+                        </p>
+                        <p class="text-gray-400 mb-4 leading-relaxed">
+                            私たちの作る謎は、単なるひらめきだけでは解けません。論理構造の解析、アルゴリズムの構築、そして時にはコードそのものを読み解く力が必要です。
+                        </p>
+                        <p class="text-gray-400 leading-relaxed">
+                            デジタルとアナログの境界線上で、貴方の脳内CPUをフル稼働させる体験を提供します。
+                        </p>
+                    </div>
+                    <div class="mt-8 grid grid-cols-2 gap-4">
+                        <div class="border border-nazo-dim/30 p-4 rounded bg-nazo-black/50">
+                            <i class="fas fa-brain text-nazo-primary text-2xl mb-2"></i>
+                            <h3 class="font-bold text-white">Logic</h3>
+                            <p class="text-xs text-gray-500 mt-1">純粋な論理パズル</p>
+                        </div>
+                        <div class="border border-nazo-dim/30 p-4 rounded bg-nazo-black/50">
+                            <i class="fas fa-terminal text-nazo-secondary text-2xl mb-2"></i>
+                            <h3 class="font-bold text-white">Code</h3>
+                            <p class="text-xs text-gray-500 mt-1">実装と解析</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <!-- Code block decoration -->
+                    <div class="bg-black rounded-lg border border-gray-800 p-6 font-mono text-sm overflow-hidden shadow-2xl relative">
+                        <div class="flex gap-2 mb-4">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        </div>
+                        <div class="text-gray-500">// NazoGram Core Logic</div>
+                        <div class="text-blue-400">class</div> <div class="text-yellow-300 inline">Mystery</div> <div class="text-white inline">{</div>
+                        <div class="pl-4">
+                            <div class="text-blue-400">constructor</div>(<span class="text-orange-300">difficulty</span>) {
+                                <div class="pl-4 text-white">
+                                    <span class="text-blue-400">this</span>.type = <span class="text-green-300">'Logic'</span>;
+                                    <br><span class="text-blue-400">this</span>.isSolved = <span class="text-blue-400">false</span>;
+                                </div>
+                            }
+                        </div>
+                        <div class="pl-4 mt-2">
+                            <div class="text-blue-400">async</div> <div class="text-yellow-300 inline">unlock</div>() {
+                                <div class="pl-4 text-white">
+                                    <span class="text-purple-400">if</span> (user.hasCodeSkill()) {
+                                        <div class="pl-4">
+                                            <span class="text-blue-400">return</span> <span class="text-green-300">'Access Granted'</span>;
+                                        </div>
+                                    } <span class="text-purple-400">else</span> {
+                                         <div class="pl-4">
+                                            <span class="text-blue-400">throw new</span> Error(<span class="text-green-300">'Study Harder'</span>);
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                        <div class="text-white">}</div>
+                        <!-- Animated Cursor Overlay -->
+                        <div class="absolute bottom-6 right-6 text-nazo-primary animate-pulse">_</div>
+                    </div>
+                    <!-- Decor elements -->
+                    <div class="absolute -top-4 -right-4 w-20 h-20 border-t-2 border-r-2 border-nazo-primary rounded-tr-lg"></div>
+                    <div class="absolute -bottom-4 -left-4 w-20 h-20 border-b-2 border-l-2 border-nazo-secondary rounded-bl-lg"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CREATORS Section -->
+    <section id="creators" class="py-24 bg-nazo-black relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-white mb-2">
+                    <span class="text-nazo-secondary mr-2">02.</span> <span class="scramble-target">CREATORS</span>
+                </h2>
+                <p class="text-nazo-dim font-mono text-sm">Members of the System</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Creator 1 -->
+                <div class="group relative bg-nazo-dark border border-gray-800 p-6 rounded-lg card-hover overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 transition-opacity">
+                        <i class="fas fa-code text-4xl text-nazo-primary"></i>
+                    </div>
+                    <div class="w-20 h-20 bg-gray-800 rounded-full mb-4 flex items-center justify-center border-2 border-nazo-dim group-hover:border-nazo-primary transition-colors">
+                        <span class="font-mono text-2xl text-white">01</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-1 font-mono">ROOT_ADMIN</h3>
+                    <p class="text-nazo-primary text-sm mb-4">Founder / Main Programmer</p>
+                    <p class="text-gray-400 text-sm">
+                        全てのロジックを統べる管理者。Web実装から謎のコアシステム構築まで担当。
+                    </p>
+                    <div class="mt-4 flex space-x-3">
+                        <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+
+                <!-- Creator 2 -->
+                <div class="group relative bg-nazo-dark border border-gray-800 p-6 rounded-lg card-hover overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 transition-opacity">
+                        <i class="fas fa-pencil-ruler text-4xl text-nazo-secondary"></i>
+                    </div>
+                    <div class="w-20 h-20 bg-gray-800 rounded-full mb-4 flex items-center justify-center border-2 border-nazo-dim group-hover:border-nazo-secondary transition-colors">
+                        <span class="font-mono text-2xl text-white">02</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-1 font-mono">DESIGN_BOT</h3>
+                    <p class="text-nazo-secondary text-sm mb-4">UI/UX Designer</p>
+                    <p class="text-gray-400 text-sm">
+                        視覚的な謎と洗練されたインターフェースを生成する。色彩と図形の魔術師。
+                    </p>
+                    <div class="mt-4 flex space-x-3">
+                        <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <!-- Creator 3 -->
+                <div class="group relative bg-nazo-dark border border-gray-800 p-6 rounded-lg card-hover overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 transition-opacity">
+                        <i class="fas fa-bug text-4xl text-red-500"></i>
+                    </div>
+                    <div class="w-20 h-20 bg-gray-800 rounded-full mb-4 flex items-center justify-center border-2 border-nazo-dim group-hover:border-red-500 transition-colors">
+                        <span class="font-mono text-2xl text-white">03</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-1 font-mono">GLITCH_MAKER</h3>
+                    <p class="text-red-500 text-sm mb-4">Storyteller</p>
+                    <p class="text-gray-400 text-sm">
+                        物語のバグ（非日常）を生み出す脚本家。プレイヤーを世界観の深淵へと誘う。
+                    </p>
+                    <div class="mt-4 flex space-x-3">
+                        <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="fas fa-pen-nib"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTENTS Section -->
+    <section id="contents" class="py-24 bg-nazo-dark relative border-t border-nazo-dim/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-3xl font-bold text-white mb-2">
+                        <span class="text-nazo-primary mr-2">03.</span> <span class="scramble-target">CONTENTS</span>
+                    </h2>
+                    <p class="text-nazo-dim font-mono text-sm">Deployed Projects</p>
+                </div>
+                <div class="hidden md:block">
+                    <span class="font-mono text-xs text-nazo-primary">FILTER: ALL</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Content 1 -->
+                <div class="group relative aspect-video bg-black border border-gray-800 overflow-hidden cursor-pointer">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80 z-10"></div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20 bg-black/60 backdrop-blur-sm">
+                        <span class="border border-nazo-primary text-nazo-primary px-4 py-2 font-mono text-sm">ACCESS_DATA</span>
+                    </div>
+                    <!-- Placeholder visual using CSS -->
+                    <div class="w-full h-full bg-gray-900 relative">
+                        <div class="absolute inset-0 grid grid-cols-8 grid-rows-8 gap-1 opacity-20">
+                            <div class="bg-nazo-primary col-span-1 row-span-1 col-start-2 row-start-2"></div>
+                            <div class="bg-nazo-primary col-span-1 row-span-1 col-start-3 row-start-3"></div>
+                            <div class="bg-nazo-primary col-span-1 row-span-1 col-start-4 row-start-2"></div>
+                        </div>
+                        <div class="absolute bottom-4 left-4 z-20">
+                            <h3 class="text-white font-bold text-lg">Project: GENESIS</h3>
+                            <p class="text-nazo-dim text-xs font-mono">Web Enigma / Diff: Hard</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content 2 -->
+                <div class="group relative aspect-video bg-black border border-gray-800 overflow-hidden cursor-pointer">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80 z-10"></div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20 bg-black/60 backdrop-blur-sm">
+                        <span class="border border-nazo-primary text-nazo-primary px-4 py-2 font-mono text-sm">ACCESS_DATA</span>
+                    </div>
+                    <div class="w-full h-full bg-gray-900 relative">
+                        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-nazo-secondary font-mono text-4xl font-bold opacity-30">404</div>
+                        <div class="absolute bottom-4 left-4 z-20">
+                            <h3 class="text-white font-bold text-lg">MISSING_LINK</h3>
+                            <p class="text-nazo-dim text-xs font-mono">ARG / Diff: Extreme</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content 3 -->
+                <div class="group relative aspect-video bg-black border border-gray-800 overflow-hidden cursor-pointer">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80 z-10"></div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20 bg-black/60 backdrop-blur-sm">
+                        <span class="border border-nazo-primary text-nazo-primary px-4 py-2 font-mono text-sm">COMING_SOON</span>
+                    </div>
+                    <div class="w-full h-full bg-gray-900 flex items-center justify-center relative">
+                        <div class="w-full h-px bg-nazo-dim absolute top-1/2"></div>
+                        <div class="h-full w-px bg-nazo-dim absolute left-1/2"></div>
+                        <div class="absolute bottom-4 left-4 z-20">
+                            <h3 class="text-white font-bold text-lg">Project: ???</h3>
+                            <p class="text-nazo-dim text-xs font-mono">Under Development</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                 <a href="#" class="inline-block text-sm font-mono text-nazo-dim hover:text-white border-b border-nazo-dim hover:border-white transition-colors pb-1">VIEW_ALL_ARCHIVES >></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT Section -->
+    <section id="contact" class="py-24 bg-nazo-black relative">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-white mb-2">
+                    <span class="text-nazo-secondary mr-2">04.</span> <span class="scramble-target">CONTACT</span>
+                </h2>
+                <p class="text-nazo-dim font-mono text-sm">Send Packet to Server</p>
+            </div>
+
+            <!-- Terminal Style Form -->
+            <div class="bg-nazo-dark border border-nazo-dim/50 rounded-lg p-2 shadow-2xl">
+                <div class="flex items-center px-4 py-2 border-b border-nazo-dim/30 bg-black/40 rounded-t">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <div class="ml-4 text-xs font-mono text-gray-500">user@nazogram:~</div>
+                </div>
+                <div class="p-6 font-mono text-sm">
+                    <form class="space-y-6" onsubmit="event.preventDefault(); alert('Message simulation sent.');">
+                        <div>
+                            <label class="block text-nazo-primary mb-2">root@nazogram:~$ input_name</label>
+                            <input type="text" class="w-full bg-black border-none text-white focus:ring-1 focus:ring-nazo-primary px-4 py-2 font-mono" placeholder="Your Name or Handle" required>
+                        </div>
+                        <div>
+                            <label class="block text-nazo-primary mb-2">root@nazogram:~$ input_email</label>
+                            <input type="email" class="w-full bg-black border-none text-white focus:ring-1 focus:ring-nazo-primary px-4 py-2 font-mono" placeholder="email@address.com" required>
+                        </div>
+                        <div>
+                            <label class="block text-nazo-primary mb-2">root@nazogram:~$ input_message</label>
+                            <textarea rows="4" class="w-full bg-black border-none text-white focus:ring-1 focus:ring-nazo-primary px-4 py-2 font-mono" placeholder="Enter your query here..." required></textarea>
+                        </div>
+                        <button type="submit" class="w-full border border-nazo-primary text-nazo-primary py-3 hover:bg-nazo-primary hover:text-black transition-colors font-bold mt-4 flex justify-center items-center group">
+                            <span>EXECUTE_SEND()</span>
+                            <span class="cursor ml-1"></span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black border-t border-nazo-dim/20 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+                <span class="font-mono text-xl font-bold text-white">&lt;NazoGram/&gt;</span>
+                <p class="text-xs text-nazo-dim mt-2 font-mono">© 2026 NazoGram. All systems operational.</p>
+            </div>
+            <div class="flex space-x-6">
+                <a href="#" class="text-nazo-dim hover:text-nazo-primary transition-colors text-sm font-mono">PRIVACY</a>
+                <a href="#" class="text-nazo-dim hover:text-nazo-primary transition-colors text-sm font-mono">TERMS</a>
+                <a href="#" class="text-nazo-dim hover:text-nazo-primary transition-colors text-sm font-mono">X(Twitter)</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // --- 1. Loading Animation ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const progressBar = document.getElementById('loader-progress');
+            const loaderText = document.getElementById('loader-text');
+            const loader = document.getElementById('loader');
+            const sessionId = document.getElementById('session-id');
+
+            // Generate random Session ID
+            sessionId.innerText = Math.random().toString(36).substring(2, 15).toUpperCase();
+
+            let width = 0;
+            const interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    loaderText.innerText = "SYSTEM READY";
+                    setTimeout(() => {
+                        loader.style.opacity = '0';
+                        setTimeout(() => {
+                            loader.style.display = 'none';
+                            // Start other animations
+                            initCanvas();
+                            startTextScramble();
+                        }, 800);
+                    }, 500);
+                } else {
+                    width += Math.random() * 10;
+                    if(width > 100) width = 100;
+                    progressBar.style.width = width + '%';
+                    
+                    const statusText = ["Loading Assets...", "Compiling Logic...", "Establishing Connection...", "Decrypting...", "Synchronizing..."];
+                    if(width % 20 < 5) {
+                        loaderText.innerText = statusText[Math.floor(Math.random() * statusText.length)];
+                    }
+                }
+            }, 100);
+        });
+
+        // --- 2. Canvas Background (Network/Particle Effect) ---
+        function initCanvas() {
+            const canvas = document.getElementById('bgCanvas');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.vx = (Math.random() - 0.5) * 0.5;
+                    this.vy = (Math.random() - 0.5) * 0.5;
+                    this.size = Math.random() * 2 + 1;
+                    this.color = Math.random() > 0.9 ? '#bd00ff' : '#00ffcc'; // Use theme colors
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+
+                    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                }
+                draw() {
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            // Init particles
+            for (let i = 0; i < 50; i++) {
+                particles.push(new Particle());
+            }
+
+            function animate() {
+                ctx.fillStyle = 'rgba(5, 5, 5, 0.1)'; // Trail effect
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+
+                // Connect particles
+                particles.forEach((a, index) => {
+                    particles.slice(index + 1).forEach(b => {
+                        const dx = a.x - b.x;
+                        const dy = a.y - b.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+
+                        if (dist < 150) {
+                            ctx.strokeStyle = `rgba(0, 255, 204, ${1 - dist / 150})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.beginPath();
+                            ctx.moveTo(a.x, a.y);
+                            ctx.lineTo(b.x, b.y);
+                            ctx.stroke();
+                        }
+                    });
+                });
+                
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        // --- 3. Text Scramble Effect (Intersection Observer) ---
+        class TextScramble {
+            constructor(el) {
+                this.el = el;
+                this.chars = '!<>-_\\/[]{}—=+*^?#________';
+                this.update = this.update.bind(this);
+            }
+            setText(newText) {
+                const oldText = this.el.innerText;
+                const length = Math.max(oldText.length, newText.length);
+                const promise = new Promise((resolve) => this.resolve = resolve);
+                this.queue = [];
+                for (let i = 0; i < length; i++) {
+                    const from = oldText[i] || '';
+                    const to = newText[i] || '';
+                    const start = Math.floor(Math.random() * 40);
+                    const end = start + Math.floor(Math.random() * 40);
+                    this.queue.push({ from, to, start, end });
+                }
+                cancelAnimationFrame(this.frameRequest);
+                this.frame = 0;
+                this.update();
+                return promise;
+            }
+            update() {
+                let output = '';
+                let complete = 0;
+                for (let i = 0, n = this.queue.length; i < n; i++) {
+                    let { from, to, start, end, char } = this.queue[i];
+                    if (this.frame >= end) {
+                        complete++;
+                        output += to;
+                    } else if (this.frame >= start) {
+                        if (!char || Math.random() < 0.28) {
+                            char = this.randomChar();
+                            this.queue[i].char = char;
+                        }
+                        output += `<span class="text-nazo-primary">${char}</span>`;
+                    } else {
+                        output += from;
+                    }
+                }
+                this.el.innerHTML = output;
+                if (complete === this.queue.length) {
+                    this.resolve();
+                } else {
+                    this.frameRequest = requestAnimationFrame(this.update);
+                    this.frame++;
+                }
+            }
+            randomChar() {
+                return this.chars[Math.floor(Math.random() * this.chars.length)];
+            }
+        }
+
+        function startTextScramble() {
+            const elements = document.querySelectorAll('.scramble-target');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+                        const fx = new TextScramble(el);
+                        // Store original text
+                        if(!el.dataset.original) el.dataset.original = el.innerText;
+                        
+                        fx.setText(el.dataset.original);
+                        observer.unobserve(el);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            elements.forEach(el => observer.observe(el));
+        }
+
+        // --- 4. Mobile Menu Toggle ---
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // --- 5. Easter Egg (Console) ---
+        console.log("%c SYSTEM ACCESS GRANTED ", "background: #000; color: #00ffcc; font-size: 20px; padding: 10px; border: 2px solid #00ffcc;");
+        console.log("%c Welcome to NazoGram. Can you find the hidden function? Try calling 'nazo()'", "color: #e2e8f0; font-family: monospace;");
+
+        window.nazo = function() {
+            console.log("%c CORRECT! The password for the next event is 'HELLO_WORLD'", "color: #bd00ff; font-weight: bold;");
+            alert("Secret Found: Check Console for details.");
+        }
+
+    </script>
+</body>
+</html>
