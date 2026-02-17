@@ -14,57 +14,56 @@ body::before {
     bottom: 0;
     right: 0;
     background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
-                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+                linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
     z-index: 9998;
     background-size: 100% 2px, 3px 100%;
     pointer-events: none;
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
 }
 ::-webkit-scrollbar-track {
-    background: #0e1217; 
+    background: #000; 
 }
 ::-webkit-scrollbar-thumb {
-    background: #00ffcc; 
-    border-radius: 4px;
+    background: #333; 
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #9d00ff; 
-}
-
-.neon-box {
-    box-shadow: 0 0 10px rgba(0, 255, 204, 0.2), inset 0 0 5px rgba(0, 255, 204, 0.1);
-}
-
-.reverse-spin {
-    animation-direction: reverse;
+    background: #00ffcc; 
 }
 
 /* ナビゲーション */
 .nav-link {
     font-family: 'Share Tech Mono', monospace;
-    font-size: 0.875rem;
-    color: #586575;
-    padding: 0.5rem 0.75rem;
+    color: #888;
+    position: relative;
     transition: color 0.3s;
 }
 .nav-link:hover {
-    color: #00ffcc;
+    color: #fff;
+}
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0%;
+    height: 1px;
+    background-color: #00ffcc;
+    transition: width 0.3s;
+}
+.nav-link:hover::after {
+    width: 100%;
 }
 
 .mobile-nav-link {
     display: block;
     color: #e2e8f0;
     padding: 0.5rem 0.75rem;
-    border-radius: 0.375rem;
     font-size: 1rem;
     font-weight: 500;
     font-family: 'Share Tech Mono', monospace;
-}
-.mobile-nav-link:hover {
-    color: #00ffcc;
 }
 
 /* ローダー */
@@ -83,25 +82,6 @@ body::before {
     transition: opacity 0.8s ease-out;
 }
 
-/* フォーム */
-.tech-input {
-    background: rgba(14, 18, 23, 0.8);
-    border: 1px solid #333;
-    transition: all 0.3s ease;
-}
-.tech-input:focus {
-    border-color: #00ffcc;
-    box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
-    outline: none;
-}
-.tech-label {
-    font-family: 'Share Tech Mono', monospace;
-    color: #00ffcc;
-    font-size: 0.85rem;
-    margin-bottom: 0.5rem;
-    display: block;
-}
-
 /* キャンバス */
 canvas {
     position: absolute;
@@ -112,23 +92,22 @@ canvas {
 
 /* ロゴ */
 .logo-img {
-    height: 40px;
+    height: 32px;
     width: auto;
 }
 .hero-logo-img {
     max-width: 80%;
     height: auto;
-    max-height: 200px;
-    filter: drop-shadow(0 0 10px rgba(0, 255, 204, 0.3));
+    filter: drop-shadow(0 0 20px rgba(0, 255, 204, 0.2));
 }
 
 .footer-icon {
-    color: #6b7280;
+    color: #444;
     transition: color 0.3s;
     font-size: 1.25rem;
 }
 .footer-icon:hover {
-    color: #ffffff;
+    color: #fff;
 }
 
 .tab-btn {
