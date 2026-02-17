@@ -28,58 +28,61 @@ const CONFIG = {
 
     // ------------------------------------------------------------------
     // コンテンツ情報
-    // title: タイトル
-    // category: カテゴリ (WEB, GAME, EVENT...)
-    // image: サムネイル画像のファイル名 (例: 'button.png') ※空欄の場合はアイコンが表示されます
-    // desc: 説明文
-    // diff: 難易度など (1-5)
+    // category: EVENT, GOODS, OTHERS (指定された3つ+ALL)
     // ------------------------------------------------------------------
     contents: [
         {
+            title: "FALL",
+            category: "OTHERS", // 新規追加
+            image: "",
+            desc: "落ちる、堕ちる、そして見つける。",
+            diff: 4
+        },
+        {
             title: "BUTTON",
-            category: "WEB",
-            image: "", // 画像ファイル名をここに入力
+            category: "OTHERS",
+            image: "", 
             desc: "ボタンを押すだけの謎解き。",
             diff: 1
         },
         {
             title: "MOVE IT",
-            category: "GAME",
+            category: "OTHERS",
             image: "",
             desc: "動かすことで真実が見える。",
             diff: 3
         },
         {
             title: "SCRATCH",
-            category: "GAME",
+            category: "OTHERS",
             image: "",
             desc: "削って見つける新感覚パズル。",
             diff: 2
         },
         {
             title: "DisPlay",
-            category: "WEB",
+            category: "OTHERS",
             image: "",
             desc: "画面の向こう側に隠されたメッセージ。",
             diff: 4
         },
         {
             title: "アストロール",
-            category: "GAME",
+            category: "OTHERS",
             image: "",
             desc: "星々を繋ぎ、物語を紡ぐ。",
             diff: 3
         },
         {
             title: "配置〜ズ",
-            category: "PUZZLE",
+            category: "OTHERS",
             image: "",
             desc: "正しい位置に全てを収めよ。",
             diff: 2
         },
         {
             title: "変換字",
-            category: "PUZZLE",
+            category: "OTHERS",
             image: "",
             desc: "言葉を変換し、意味を変えろ。",
             diff: 3
@@ -93,14 +96,14 @@ const CONFIG = {
         },
         {
             title: "寿司謎",
-            category: "GAME",
+            category: "OTHERS",
             image: "",
             desc: "へいお待ち！新鮮な謎を一丁。",
             diff: 1
         },
         {
             title: "AGAINST",
-            category: "WEB",
+            category: "OTHERS",
             image: "",
             desc: "逆境に立ち向かう謎解き。",
             diff: 5
