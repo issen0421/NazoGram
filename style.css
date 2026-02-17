@@ -131,8 +131,6 @@ canvas {
     color: #ffffff;
 }
 
-/* タブのアクティブスタイルはJSでTailwindクラスを制御しているため
-   ここでは補完的なトランジションのみ定義 */
 .tab-btn {
     transition: all 0.3s ease;
 }
