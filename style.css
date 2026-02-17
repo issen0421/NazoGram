@@ -82,6 +82,25 @@ body::before {
     transition: opacity 0.8s ease-out;
 }
 
+/* フォーム */
+.tech-input {
+    background: rgba(14, 18, 23, 0.8);
+    border: 1px solid #333;
+    transition: all 0.3s ease;
+}
+.tech-input:focus {
+    border-color: #00ffcc;
+    box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+    outline: none;
+}
+.tech-label {
+    font-family: 'Share Tech Mono', monospace;
+    color: #00ffcc;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
 /* キャンバス */
 canvas {
     position: absolute;
@@ -98,6 +117,7 @@ canvas {
 .hero-logo-img {
     max-width: 80%;
     height: auto;
+    max-height: 200px;
     filter: drop-shadow(0 0 20px rgba(0, 255, 204, 0.2));
 }
 
@@ -112,4 +132,8 @@ canvas {
 
 .tab-btn {
     transition: all 0.3s ease;
+}
+
+.neon-box {
+    box-shadow: 0 0 10px rgba(0, 255, 204, 0.2), inset 0 0 5px rgba(0, 255, 204, 0.1);
 }
