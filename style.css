@@ -5,7 +5,6 @@ body {
     overflow-x: hidden;
 }
 
-/* 走査線エフェクト（ブラウン管のような線） */
 body::before {
     content: " ";
     display: block;
@@ -21,7 +20,6 @@ body::before {
     pointer-events: none;
 }
 
-/* カスタムスクロールバー */
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -36,7 +34,6 @@ body::before {
     background: #9d00ff; 
 }
 
-/* ユーティリティクラス */
 .neon-box {
     box-shadow: 0 0 10px rgba(0, 255, 204, 0.2), inset 0 0 5px rgba(0, 255, 204, 0.1);
 }
@@ -45,7 +42,7 @@ body::before {
     animation-direction: reverse;
 }
 
-/* ナビゲーションリンク */
+/* ナビゲーション */
 .nav-link {
     font-family: 'Share Tech Mono', monospace;
     font-size: 0.875rem;
@@ -70,7 +67,7 @@ body::before {
     color: #00ffcc;
 }
 
-/* ローディング画面 */
+/* ローダー */
 #loader {
     position: fixed;
     top: 0;
@@ -86,7 +83,7 @@ body::before {
     transition: opacity 0.8s ease-out;
 }
 
-/* 入力フォーム */
+/* フォーム */
 .tech-input {
     background: rgba(14, 18, 23, 0.8);
     border: 1px solid #333;
@@ -105,7 +102,7 @@ body::before {
     display: block;
 }
 
-/* 背景キャンバス */
+/* キャンバス */
 canvas {
     position: absolute;
     top: 0;
@@ -113,7 +110,7 @@ canvas {
     z-index: -1;
 }
 
-/* ロゴ設定 */
+/* ロゴ */
 .logo-img {
     height: 40px;
     width: auto;
@@ -125,7 +122,6 @@ canvas {
     filter: drop-shadow(0 0 10px rgba(0, 255, 204, 0.3));
 }
 
-/* フッターアイコン */
 .footer-icon {
     color: #6b7280;
     transition: color 0.3s;
@@ -133,4 +129,10 @@ canvas {
 }
 .footer-icon:hover {
     color: #ffffff;
+}
+
+/* タブのアクティブスタイルはJSでTailwindクラスを制御しているため
+   ここでは補完的なトランジションのみ定義 */
+.tab-btn {
+    transition: all 0.3s ease;
 }
