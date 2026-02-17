@@ -29,15 +29,25 @@
                         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'float': 'float 6s ease-in-out infinite',
                         'fade-in': 'fadeIn 0.5s ease-out forwards',
+                        'slide-in-left': 'slideInLeft 1s ease-out forwards',
+                        'slide-in-right': 'slideInRight 1s ease-out forwards',
                     },
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' },
+                            '50%': { transform: 'translateY(-15px)' },
                         },
                         fadeIn: {
                             '0%': { opacity: '0', transform: 'translateY(10px)' },
                             '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        slideInLeft: {
+                            '0%': { opacity: '0', transform: 'translateX(-50px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' },
+                        },
+                        slideInRight: {
+                            '0%': { opacity: '0', transform: 'translateX(50px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' },
                         }
                     }
                 }
@@ -45,21 +55,15 @@
         }
     </script>
 
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Zen+Kaku+Gothic+New:wght@300;500;700&display=swap" rel="stylesheet">
-    
-    <!-- Custom CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Zen+Kaku+Gothic+New:wght@300;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="font-sans antialiased selection:bg-nazo-primary selection:text-black">
 
     <!-- Loading Screen -->
     <div id="loader">
-        <div class="font-mono text-white text-xl mb-4 tracking-widest">
-            SYSTEM BOOT
-        </div>
+        <div class="font-mono text-white text-xl mb-4 tracking-widest">SYSTEM BOOT</div>
         <div class="w-48 h-1 bg-gray-800 rounded overflow-hidden">
             <div class="h-full bg-nazo-primary animate-pulse" style="width: 100%" id="loader-bar"></div>
         </div>
@@ -70,24 +74,24 @@
     <canvas id="bgCanvas"></canvas>
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 bg-nazo-black/90 backdrop-blur-md border-b border-white/10">
+    <nav class="fixed w-full z-50 bg-nazo-black/90 backdrop-blur-md border-b border-white/5">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
+            <div class="flex items-center justify-between h-20">
                 <!-- Nav Logo -->
                 <div class="flex-shrink-0 cursor-pointer group flex items-center" onclick="window.scrollTo(0,0)">
                     <img id="nav-logo" src="" alt="NazOGram" class="logo-img hidden">
-                    <span id="nav-text-fallback" class="font-sans text-2xl font-bold text-white tracking-wide">
+                    <span id="nav-text-fallback" class="font-sans text-xl font-bold text-white tracking-wide">
                         Naz<span class="text-nazo-primary">O</span>Gram
                     </span>
                 </div>
                 
                 <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="#home" class="nav-link">HOME</a>
-                        <a href="#about" class="nav-link">ABOUT</a>
-                        <a href="#contents" class="nav-link">CONTENTS</a>
-                        <a href="#creators" class="nav-link">MEMBERS</a>
-                        <a href="#contact" class="nav-link">CONTACT</a>
+                    <div class="ml-10 flex items-baseline space-x-10">
+                        <a href="#home" class="nav-link text-xs tracking-widest">HOME</a>
+                        <a href="#about" class="nav-link text-xs tracking-widest">ABOUT</a>
+                        <a href="#contents" class="nav-link text-xs tracking-widest">CONTENTS</a>
+                        <a href="#creators" class="nav-link text-xs tracking-widest">MEMBERS</a>
+                        <a href="#contact" class="nav-link text-xs tracking-widest">CONTACT</a>
                     </div>
                 </div>
                 <div class="-mr-2 flex md:hidden">
@@ -109,71 +113,106 @@
         </div>
     </nav>
 
-    <!-- HOME Section -->
-    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
-        <div class="text-center z-10 px-4 w-full flex flex-col items-center">
-            <h2 class="font-mono text-nazo-primary text-xs md:text-sm mb-6 tracking-[0.5em] opacity-80">BALANCE THE CODE</h2>
-            
-            <!-- Hero Logo -->
-            <div class="mb-8 animate-float">
-                <img id="hero-logo" src="" alt="NazOGram Logo" class="hero-logo-img hidden mx-auto">
-                 <h1 id="hero-text-fallback" class="text-6xl md:text-8xl font-bold text-white tracking-tight">
-                    Naz<span class="text-nazo-primary">O</span>Gram
-                </h1>
-            </div>
-            
-            <p class="mt-2 max-w-2xl mx-auto text-sm md:text-lg text-gray-400 font-sans font-light tracking-wide leading-relaxed">
-                <span class="text-white font-medium">謎解き</span>の論理と、<span class="text-nazo-primary font-medium">プログラム</span>の法則。<br>
-                二つの叡智を天秤にかけ、新たな解を導き出す。
-            </p>
-            
-            <div class="mt-12 flex flex-col md:flex-row gap-4 justify-center items-center">
-                <a href="#contents" class="px-8 py-3 bg-nazo-primary/10 border border-nazo-primary text-nazo-primary font-mono text-sm hover:bg-nazo-primary hover:text-black transition-all duration-300 neon-box">
-                    VIEW_CONTENTS
-                </a>
+    <!-- NEW HOME Section -->
+    <section id="home" class="relative min-h-screen flex items-center overflow-hidden pt-20">
+        <!-- Decoration Grid -->
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] opacity-30"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left: Typography -->
+                <div class="lg:col-span-7 flex flex-col justify-center animate-slide-in-left">
+                    <div class="flex items-center mb-6">
+                        <span class="h-px w-12 bg-nazo-primary mr-4"></span>
+                        <span class="font-mono text-nazo-primary text-sm tracking-[0.3em]">CREATIVE TEAM</span>
+                    </div>
+                    
+                    <h1 class="text-6xl md:text-8xl lg:text-9xl font-black text-white leading-none tracking-tighter mb-4">
+                        Naz<span class="text-transparent bg-clip-text bg-gradient-to-r from-nazo-primary to-nazo-secondary">O</span><br>Gram
+                    </h1>
+                    
+                    <p class="text-gray-400 text-lg md:text-xl font-light tracking-wide max-w-lg mb-10 leading-relaxed">
+                        謎解きとプログラムの融合。<br>
+                        <span class="text-white font-medium">論理</span>を構築し、<span class="text-white font-medium">世界</span>をハックせよ。
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#contents" class="group relative px-8 py-4 bg-white text-black font-bold font-mono tracking-wider hover:bg-nazo-primary transition-colors duration-300">
+                            VIEW_CONTENTS
+                            <span class="absolute -bottom-2 -right-2 w-full h-full border border-white group-hover:border-nazo-primary transition-colors duration-300 -z-10"></span>
+                        </a>
+                        <a href="#about" class="px-8 py-4 border border-gray-700 text-gray-400 font-mono tracking-wider hover:text-white hover:border-white transition-colors duration-300">
+                            ABOUT_US
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Visual -->
+                <div class="lg:col-span-5 relative flex justify-center items-center animate-slide-in-right">
+                    <!-- Hero Logo / Visual -->
+                    <div class="relative w-full max-w-md aspect-square flex items-center justify-center">
+                        <!-- Abstract Rings -->
+                        <div class="absolute inset-0 border border-nazo-dim/30 rounded-full animate-[spin_10s_linear_infinite]"></div>
+                        <div class="absolute inset-4 border border-nazo-primary/20 rounded-full animate-[spin_15s_linear_infinite_reverse]"></div>
+                        <div class="absolute inset-12 border border-nazo-secondary/20 rounded-full animate-[spin_20s_linear_infinite]"></div>
+                        
+                        <!-- Main Logo Image -->
+                        <img id="hero-logo" src="" alt="NazOGram" class="hero-logo-img relative z-20 hidden animate-float">
+                        
+                        <!-- Fallback Visual -->
+                        <div id="hero-text-fallback" class="relative z-20 text-center">
+                            <i class="fas fa-scale-balanced text-8xl text-white drop-shadow-[0_0_15px_rgba(0,255,204,0.5)] animate-float"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         
-        <div class="absolute bottom-10 right-10 flex flex-col items-end">
-             <div class="w-px h-24 bg-gradient-to-t from-transparent via-nazo-primary to-transparent mb-2"></div>
-             <span class="font-mono text-xs text-nazo-primary">SCROLL_DOWN</span>
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-0 left-0 p-8 flex items-end">
+            <span class="font-mono text-xs text-gray-500 mr-4 rotate-180" style="writing-mode: vertical-rl;">SCROLL</span>
+            <div class="h-24 w-px bg-gradient-to-b from-transparent to-nazo-primary"></div>
         </div>
     </section>
 
     <!-- ABOUT Section -->
-    <section id="about" class="py-24 bg-nazo-dark relative border-t border-white/5">
+    <section id="about" class="py-24 bg-nazo-dark relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
                 <div class="mb-12 lg:mb-0 order-2 lg:order-1 relative">
-                    <!-- Balance Visual -->
-                    <div class="w-full aspect-square max-w-md mx-auto relative border border-gray-800 rounded-full flex items-center justify-center p-8">
-                        <div class="absolute inset-0 border border-nazo-primary/20 rounded-full animate-pulse-slow"></div>
-                        <div class="relative z-10 text-center">
-                            <i class="fas fa-scale-balanced text-6xl text-white mb-4 block"></i>
+                    <!-- Tech Visual -->
+                    <div class="bg-nazo-black p-8 rounded border border-gray-800 font-mono text-xs text-gray-400 shadow-2xl">
+                        <div class="flex gap-2 mb-4 border-b border-gray-800 pb-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
                         </div>
-                        <div class="absolute w-full h-full animate-spin duration-[15s] opacity-50">
-                            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 bg-nazo-secondary rounded-full"></div>
-                        </div>
-                         <div class="absolute w-3/4 h-3/4 animate-spin duration-[10s] opacity-70 reverse-spin">
-                            <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-nazo-primary rounded-full"></div>
-                        </div>
+                        <p class="text-nazo-secondary">class <span class="text-white">NazoGram</span> {</p>
+                        <p class="pl-4">constructor() {</p>
+                        <p class="pl-8">this.mission = <span class="text-nazo-primary">"Innovate Mystery"</span>;</p>
+                        <p class="pl-8">this.tools = [<span class="text-yellow-400">"Logic"</span>, <span class="text-yellow-400">"Code"</span>, <span class="text-yellow-400">"Passion"</span>];</p>
+                        <p class="pl-4">}</p>
+                        <p class="pl-4 mt-2">solve(<span class="text-blue-400">player</span>) {</p>
+                        <p class="pl-8">if (player.hasCuriosity) {</p>
+                        <p class="pl-12">return <span class="text-nazo-primary">true</span>;</p>
+                        <p class="pl-8">}</p>
+                        <p class="pl-4">}</p>
+                        <p>}</p>
                     </div>
                 </div>
                 
                 <div class="order-1 lg:order-2">
-                    <h2 class="text-3xl font-bold text-white mb-8 flex items-center">
-                        <span class="text-nazo-primary mr-3 font-mono text-xl">01.</span>
-                        <span class="border-b-2 border-nazo-primary pb-1">ABOUT</span>
+                    <h2 class="text-4xl font-bold text-white mb-8">
+                        <span class="text-nazo-primary text-sm font-mono block mb-2 tracking-widest">01. ABOUT US</span>
+                        Decode the Reality.
                     </h2>
-                    <div class="space-y-6 text-gray-400 font-light leading-relaxed">
+                    <div class="space-y-6 text-gray-400 font-light leading-relaxed text-lg">
                         <p>
-                            <strong class="text-white font-medium">「均衡（Balance）」を崩せ。</strong>
+                            NazOGram（ナゾグラム）は、<span class="text-white">謎解き</span>と<span class="text-white">プログラム</span>の融合を掲げるクリエイティブ団体です。
                         </p>
                         <p>
-                            NazOGram（ナゾグラム）は、<span class="text-nazo-primary">謎解き(Nazo)</span>と<span class="text-nazo-secondary">プログラム(Program)</span>の融合を掲げるクリエイティブ団体です。
-                        </p>
-                        <p>
-                            私たちは、Web技術やプログラミングロジックそのものを謎のギミックとして組み込み、
+                            私たちはWeb技術やプログラミングロジックそのものを謎のギミックとして組み込み、
                             「ソースコードを読む」「APIを叩く」「バグを利用する」といった、先進的な体験を創造します。
                         </p>
                     </div>
@@ -185,86 +224,66 @@
     <!-- CONTENTS Section -->
     <section id="contents" class="py-24 bg-nazo-black relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-end mb-8 border-b border-gray-800 pb-4">
-                <div>
-                    <h2 class="text-3xl font-bold text-white mb-2">
-                        <span class="text-nazo-secondary mr-2 font-mono text-xl">02.</span>
-                        CONTENTS
-                    </h2>
-                    <p class="text-gray-500 font-mono text-xs">Archives of Logic</p>
-                </div>
+            <div class="mb-12">
+                <h2 class="text-4xl font-bold text-white mb-2">
+                    <span class="text-nazo-secondary text-sm font-mono block mb-2 tracking-widest">02. CONTENTS</span>
+                    Our Archives
+                </h2>
             </div>
             
-            <!-- タブ -->
-            <div id="content-tabs" class="flex flex-wrap gap-4 mb-8"></div>
-
-            <!-- グリッド -->
+            <div id="content-tabs" class="flex flex-wrap gap-4 mb-10"></div>
             <div id="contents-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[300px]"></div>
         </div>
     </section>
 
     <!-- MEMBERS Section -->
-    <section id="creators" class="py-24 bg-nazo-dark relative border-t border-gray-900">
+    <section id="creators" class="py-24 bg-nazo-dark relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-10">
-                 <h2 class="text-3xl font-bold text-white mb-2">
-                    <span class="text-nazo-primary mr-2 font-mono text-xl">03.</span>
-                    MEMBERS
+            <div class="mb-12 text-center">
+                 <h2 class="text-4xl font-bold text-white mb-2">
+                    <span class="text-nazo-primary text-sm font-mono block mb-2 tracking-widest">03. MEMBERS</span>
+                    System Operators
                 </h2>
-                <p class="text-gray-500 font-mono text-sm">System Operators</p>
             </div>
-            
             <div id="member-tabs" class="flex flex-wrap justify-center gap-4 mb-12"></div>
-
             <div id="members-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8 min-h-[300px]"></div>
         </div>
     </section>
 
     <!-- CONTACT Section -->
-    <section id="contact" class="py-24 bg-gradient-to-b from-nazo-dark to-nazo-black relative">
+    <section id="contact" class="py-24 bg-black relative">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-white mb-2">
-                    <span class="text-nazo-secondary mr-2 font-mono text-xl">04.</span>
-                    CONTACT US
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-white mb-2">
+                    <span class="text-nazo-secondary text-sm font-mono block mb-2 tracking-widest">04. CONTACT</span>
+                    Connect with Us
                 </h2>
-                <p class="text-gray-500 font-mono text-sm">Send your query to NazOGram</p>
             </div>
 
-            <div class="bg-black/50 border border-gray-800 p-1 rounded-lg backdrop-blur-sm shadow-2xl">
-                <div class="bg-gray-900/80 px-4 py-2 flex items-center border-b border-gray-800 rounded-t">
-                    <div class="flex space-x-2 mr-4">
-                        <div class="w-3 h-3 rounded-full bg-red-500/50"></div>
-                        <div class="w-3 h-3 rounded-full bg-yellow-500/50"></div>
-                        <div class="w-3 h-3 rounded-full bg-green-500/50"></div>
+            <div class="bg-nazo-dark border border-gray-800 p-8 md:p-12 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-nazo-primary/5 rounded-full blur-2xl"></div>
+                
+                <form class="space-y-8 relative z-10" onsubmit="event.preventDefault(); alert('Message Packet Sent.');">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="group">
+                            <label class="block text-xs font-mono text-gray-500 mb-2">NAME</label>
+                            <input type="text" class="w-full bg-black border border-gray-700 text-white px-4 py-4 focus:border-nazo-primary focus:outline-none transition-colors" placeholder="Enter your name" required>
+                        </div>
+                        <div class="group">
+                            <label class="block text-xs font-mono text-gray-500 mb-2">EMAIL</label>
+                            <input type="email" class="w-full bg-black border border-gray-700 text-white px-4 py-4 focus:border-nazo-primary focus:outline-none transition-colors" placeholder="name@example.com" required>
+                        </div>
                     </div>
-                    <div class="text-xs font-mono text-gray-500 flex-1 text-center">secure_connection: established</div>
-                </div>
-
-                <div class="p-8 md:p-12">
-                    <form class="space-y-8" onsubmit="event.preventDefault(); alert('Message Packet Sent.');">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div class="relative group">
-                                <label class="tech-label"><i class="fas fa-user mr-2 opacity-50"></i>NAME</label>
-                                <input type="text" class="w-full tech-input text-white px-4 py-3 rounded text-sm font-sans placeholder-gray-700" placeholder="Enter your name" required>
-                            </div>
-                            <div class="relative group">
-                                <label class="tech-label"><i class="fas fa-envelope mr-2 opacity-50"></i>EMAIL</label>
-                                <input type="email" class="w-full tech-input text-white px-4 py-3 rounded text-sm font-sans placeholder-gray-700" placeholder="name@example.com" required>
-                            </div>
-                        </div>
-                        <div class="relative group">
-                            <label class="tech-label"><i class="fas fa-comment-alt mr-2 opacity-50"></i>MESSAGE</label>
-                            <textarea rows="5" class="w-full tech-input text-white px-4 py-3 rounded text-sm font-sans placeholder-gray-700" placeholder="お問い合わせ内容を入力してください..." required></textarea>
-                        </div>
-                        <button type="submit" class="w-full group relative overflow-hidden rounded bg-nazo-primary/10 border border-nazo-primary text-nazo-primary py-4 transition-all hover:bg-nazo-primary hover:text-black">
-                            <span class="relative z-10 font-bold font-mono flex items-center justify-center">
-                                SEND_MESSAGE <i class="fas fa-paper-plane ml-2 group-hover:translate-x-1 transition-transform"></i>
-                            </span>
-                            <div class="absolute inset-0 bg-nazo-primary transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 -z-0"></div>
+                    <div class="group">
+                        <label class="block text-xs font-mono text-gray-500 mb-2">MESSAGE</label>
+                        <textarea rows="5" class="w-full bg-black border border-gray-700 text-white px-4 py-4 focus:border-nazo-primary focus:outline-none transition-colors" placeholder="Type your message..." required></textarea>
+                    </div>
+                    <div class="text-right">
+                        <button type="submit" class="inline-block px-10 py-4 bg-white text-black font-bold font-mono tracking-wider hover:bg-nazo-primary transition-colors">
+                            SEND MESSAGE
                         </button>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
     </section>
@@ -276,7 +295,7 @@
                 <span class="font-sans text-xl font-bold text-white tracking-wide">
                     Naz<span class="text-nazo-primary">O</span>Gram
                 </span>
-                <p class="text-xs text-gray-600 mt-2 font-mono">© 2026 NazOGram. Logic Balanced.</p>
+                <p class="text-xs text-gray-600 mt-2 font-mono">© 2026 NazOGram.</p>
             </div>
             <div class="flex space-x-8">
                 <a href="#" class="footer-icon"><i class="fab fa-twitter"></i></a>
