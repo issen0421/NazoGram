@@ -1,0 +1,136 @@
+/* 基本設定 */
+body {
+    background-color: #050505;
+    color: #e2e8f0;
+    overflow-x: hidden;
+}
+
+/* 走査線エフェクト（ブラウン管のような線） */
+body::before {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 9998;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+}
+
+/* カスタムスクロールバー */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #0e1217; 
+}
+::-webkit-scrollbar-thumb {
+    background: #00ffcc; 
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #9d00ff; 
+}
+
+/* ユーティリティクラス */
+.neon-box {
+    box-shadow: 0 0 10px rgba(0, 255, 204, 0.2), inset 0 0 5px rgba(0, 255, 204, 0.1);
+}
+
+.reverse-spin {
+    animation-direction: reverse;
+}
+
+/* ナビゲーションリンク */
+.nav-link {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.875rem;
+    color: #586575;
+    padding: 0.5rem 0.75rem;
+    transition: color 0.3s;
+}
+.nav-link:hover {
+    color: #00ffcc;
+}
+
+.mobile-nav-link {
+    display: block;
+    color: #e2e8f0;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: 'Share Tech Mono', monospace;
+}
+.mobile-nav-link:hover {
+    color: #00ffcc;
+}
+
+/* ローディング画面 */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #050505;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: opacity 0.8s ease-out;
+}
+
+/* 入力フォーム */
+.tech-input {
+    background: rgba(14, 18, 23, 0.8);
+    border: 1px solid #333;
+    transition: all 0.3s ease;
+}
+.tech-input:focus {
+    border-color: #00ffcc;
+    box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+    outline: none;
+}
+.tech-label {
+    font-family: 'Share Tech Mono', monospace;
+    color: #00ffcc;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+/* 背景キャンバス */
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/* ロゴ設定 */
+.logo-img {
+    height: 40px;
+    width: auto;
+}
+.hero-logo-img {
+    max-width: 80%;
+    height: auto;
+    max-height: 200px;
+    filter: drop-shadow(0 0 10px rgba(0, 255, 204, 0.3));
+}
+
+/* フッターアイコン */
+.footer-icon {
+    color: #6b7280;
+    transition: color 0.3s;
+    font-size: 1.25rem;
+}
+.footer-icon:hover {
+    color: #ffffff;
+}
