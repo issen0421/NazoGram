@@ -6,24 +6,30 @@ const CONFIG = {
     logoFileName: '0-NazoGramLogo.png',
 
     // ------------------------------------------------------------------
-    // メンバー情報 (15名)
+    // メンバー情報
+    // name: 名前
+    // role: 役職
+    // color: テーマカラー ('primary', 'secondary', 'red')
+    // icon: 背景アイコン
+    // category: フィルタ用カテゴリ
+    // xUrl: X(Twitter)のプロフィールURL (例: 'https://twitter.com/username')
     // ------------------------------------------------------------------
     members: [
-        { name: "一仙", role: "Representative", desc: "NazoGramの代表。全ての始まり。", color: "primary", icon: "fa-crown", category: "LEADER" },
-        { name: "しろくま", role: "Nazo Creator", desc: "論理と閃きのクリエイター。", color: "secondary", icon: "fa-puzzle-piece", category: "MEMBER" },
-        { name: "さっしー", role: "Engineer", desc: "システム構築のスペシャリスト。", color: "primary", icon: "fa-code", category: "MEMBER" },
-        { name: "YAMASA", role: "Designer", desc: "視覚デザインと世界観の構築。", color: "secondary", icon: "fa-palette", category: "MEMBER" },
-        { name: "あせろら", role: "Nazo Creator", desc: "独自の世界観を持つ謎を生み出す。", color: "red", icon: "fa-lightbulb", category: "MEMBER" },
-        { name: "Tohl", role: "Programmer", desc: "コードで謎を紡ぐ。", color: "primary", icon: "fa-terminal", category: "MEMBER" },
-        { name: "土反レイ", role: "Storyteller", desc: "物語の深淵を描く。", color: "secondary", icon: "fa-book-open", category: "MEMBER" },
-        { name: "Misa", role: "Creator", desc: "繊細なギミックの魔術師。", color: "red", icon: "fa-star", category: "MEMBER" },
-        { name: "あめあられ", role: "Engineer", desc: "技術で不可能を可能にする。", color: "primary", icon: "fa-microchip", category: "MEMBER" },
-        { name: "きゃわわ", role: "Designer", desc: "ポップで洗練されたデザイン。", color: "secondary", icon: "fa-paint-brush", category: "MEMBER" },
-        { name: "えゆねる", role: "Nazo Creator", desc: "革新的な謎解き体験を提供。", color: "red", icon: "fa-cube", category: "MEMBER" },
-        { name: "Kadi", role: "Creator", desc: "多角的な視点から謎を構築。", color: "primary", icon: "fa-layer-group", category: "MEMBER" },
-        { name: "いおくたん", role: "Engineer", desc: "サーバーサイドの守護者。", color: "secondary", icon: "fa-server", category: "MEMBER" },
-        { name: "けん", role: "Nazo Creator", desc: "シンプルかつ奥深い謎。", color: "red", icon: "fa-shapes", category: "MEMBER" },
-        { name: "すぴか", role: "Creator", desc: "輝くようなアイデアの源泉。", color: "primary", icon: "fa-bolt", category: "MEMBER" }
+        { name: "一仙", role: "Representative", color: "primary", icon: "fa-crown", category: "LEADER", xUrl: "https://twitter.com/" },
+        { name: "しろくま", role: "Nazo Creator", color: "secondary", icon: "fa-puzzle-piece", category: "MEMBER", xUrl: "https://twitter.com/" },
+        { name: "さっしー", role: "Engineer", color: "primary", icon: "fa-code", category: "MEMBER", xUrl: "https://twitter.com/" },
+        { name: "YAMASA", role: "Designer", color: "secondary", icon: "fa-palette", category: "MEMBER", xUrl: "https://twitter.com/" },
+        { name: "あせろら", role: "Nazo Creator", color: "red", icon: "fa-lightbulb", category: "MEMBER", xUrl: "https://twitter.com/" },
+        { name: "Tohl", role: "Programmer", color: "primary", icon: "fa-terminal", category: "MEMBER", xUrl: "https://twitter.com/" },
+        { name: "土反レイ", role: "Storyteller", color: "secondary", icon: "fa-book-open", category: "MEMBER", xUrl: "https://twitter.com/" },
+        { name: "Misa", role: "Creator", color: "red", icon: "fa-star", category: "MEMBER", xUrl: "https://twitter.com/" },
+        { name: "あめあられ", role: "Engineer", color: "primary", icon: "fa-microchip", category: "MEMBER", xUrl: "https://twitter.com/" },
+        { name: "きゃわわ", role: "Designer", color: "secondary", icon: "fa-paint-brush", category: "MEMBER", xUrl: "https://twitter.com/" },
+        { name: "えゆねる", role: "Nazo Creator", color: "red", icon: "fa-cube", category: "MEMBER", xUrl: "https://twitter.com/" },
+        { name: "Kadi", role: "Creator", color: "primary", icon: "fa-layer-group", category: "MEMBER", xUrl: "https://twitter.com/" },
+        { name: "いおくたん", role: "Engineer", color: "secondary", icon: "fa-server", category: "MEMBER", xUrl: "https://twitter.com/" },
+        { name: "けん", role: "Nazo Creator", color: "red", icon: "fa-shapes", category: "MEMBER", xUrl: "https://twitter.com/" },
+        { name: "すぴか", role: "Creator", color: "primary", icon: "fa-bolt", category: "MEMBER", xUrl: "https://twitter.com/" }
     ],
 
     // ------------------------------------------------------------------
