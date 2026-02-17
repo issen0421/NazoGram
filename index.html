@@ -85,7 +85,7 @@
                     <div class="ml-10 flex items-baseline space-x-8">
                         <a href="#home" class="nav-link">HOME</a>
                         <a href="#about" class="nav-link">ABOUT</a>
-                        <a href="#projects" class="nav-link">PROJECTS</a>
+                        <a href="#contents" class="nav-link">CONTENTS</a>
                         <a href="#creators" class="nav-link">MEMBERS</a>
                         <a href="#contact" class="nav-link">CONTACT</a>
                     </div>
@@ -102,7 +102,7 @@
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="#home" class="mobile-nav-link">HOME</a>
                 <a href="#about" class="mobile-nav-link">ABOUT</a>
-                <a href="#projects" class="mobile-nav-link">PROJECTS</a>
+                <a href="#contents" class="mobile-nav-link">CONTENTS</a>
                 <a href="#creators" class="mobile-nav-link">MEMBERS</a>
                 <a href="#contact" class="mobile-nav-link">CONTACT</a>
             </div>
@@ -128,8 +128,8 @@
             </p>
             
             <div class="mt-12 flex flex-col md:flex-row gap-4 justify-center items-center">
-                <a href="#projects" class="px-8 py-3 bg-nazo-primary/10 border border-nazo-primary text-nazo-primary font-mono text-sm hover:bg-nazo-primary hover:text-black transition-all duration-300 neon-box">
-                    VIEW_PROJECTS
+                <a href="#contents" class="px-8 py-3 bg-nazo-primary/10 border border-nazo-primary text-nazo-primary font-mono text-sm hover:bg-nazo-primary hover:text-black transition-all duration-300 neon-box">
+                    VIEW_CONTENTS
                 </a>
             </div>
         </div>
@@ -182,26 +182,24 @@
         </div>
     </section>
 
-    <!-- PROJECTS Section -->
-    <section id="projects" class="py-24 bg-nazo-black relative">
+    <!-- CONTENTS Section -->
+    <section id="contents" class="py-24 bg-nazo-black relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-end mb-8 border-b border-gray-800 pb-4">
                 <div>
                     <h2 class="text-3xl font-bold text-white mb-2">
                         <span class="text-nazo-secondary mr-2 font-mono text-xl">02.</span>
-                        PROJECTS
+                        CONTENTS
                     </h2>
                     <p class="text-gray-500 font-mono text-xs">Archives of Logic</p>
                 </div>
             </div>
             
-            <!-- タブ切り替えボタンエリア -->
-            <div id="project-tabs" class="flex flex-wrap gap-4 mb-8">
-                <!-- JSで動的に生成 -->
-            </div>
+            <!-- タブ -->
+            <div id="content-tabs" class="flex flex-wrap gap-4 mb-8"></div>
 
             <!-- グリッド -->
-            <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[300px]"></div>
+            <div id="contents-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[300px]"></div>
         </div>
     </section>
 
@@ -216,12 +214,8 @@
                 <p class="text-gray-500 font-mono text-sm">System Operators</p>
             </div>
             
-            <!-- タブ切り替えボタンエリア -->
-            <div id="member-tabs" class="flex flex-wrap justify-center gap-4 mb-12">
-                <!-- JSで動的に生成 -->
-            </div>
+            <div id="member-tabs" class="flex flex-wrap justify-center gap-4 mb-12"></div>
 
-            <!-- グリッド -->
             <div id="members-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8 min-h-[300px]"></div>
         </div>
     </section>
@@ -291,7 +285,6 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="config.js"></script>
     <script src="script.js"></script>
 </body>
