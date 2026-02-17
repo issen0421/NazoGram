@@ -3,56 +3,31 @@
 // ==============================================
 
 const CONFIG = {
-    // ------------------------------------------------------------------
-    // 1. ロゴ画像設定
-    // アップロードした画像ファイル名を入力してください。
-    // 例: 'logo.png', 'my-logo.jpg' など
-    // 画像がない場合は空欄 '' にすると、自動でテキストロゴが表示されます。
-    // ------------------------------------------------------------------
     logoFileName: '0-NazoGramLogo.png',
 
-
     // ------------------------------------------------------------------
-    // 2. メンバー情報
-    // name: 名前
-    // role: 役職
-    // desc: 説明文
-    // color: テーマカラー ('primary'=水色, 'secondary'=紫, 'red'=赤)
-    // icon: FontAwesomeのアイコンクラス名 (例: 'fa-code', 'fa-user', 'fa-bug')
+    // メンバー情報 (15名)
     // ------------------------------------------------------------------
     members: [
-        {
-            name: "一仙",
-            role: "Founder / Main Programmer",
-            desc: "全てのロジックを統べる管理者。Web実装から謎のコアシステム構築まで担当。",
-            color: "primary",
-            icon: "fa-code"
-        },
-        {
-            name: "しろくま",
-            role: "UI/UX Designer",
-            desc: "視覚的な謎と洗練されたインターフェースを生成する。色彩と図形の魔術師。",
-            color: "secondary",
-            icon: "fa-pencil-ruler"
-        },
-        {
-            name: "えゆねる",
-            role: "Storyteller",
-            desc: "物語のバグ（非日常）を生み出す脚本家。プレイヤーを世界観の深淵へと誘う。",
-            color: "red",
-            icon: "fa-bug"
-        }
+        { name: "一仙", role: "Representative", desc: "NazoGramの代表。全ての始まり。", color: "primary", icon: "fa-crown", category: "LEADER" },
+        { name: "しろくま", role: "Nazo Creator", desc: "論理と閃きのクリエイター。", color: "secondary", icon: "fa-puzzle-piece", category: "MEMBER" },
+        { name: "さっしー", role: "Engineer", desc: "システム構築のスペシャリスト。", color: "primary", icon: "fa-code", category: "MEMBER" },
+        { name: "YAMASA", role: "Designer", desc: "視覚デザインと世界観の構築。", color: "secondary", icon: "fa-palette", category: "MEMBER" },
+        { name: "あせろら", role: "Nazo Creator", desc: "独自の世界観を持つ謎を生み出す。", color: "red", icon: "fa-lightbulb", category: "MEMBER" },
+        { name: "Tohl", role: "Programmer", desc: "コードで謎を紡ぐ。", color: "primary", icon: "fa-terminal", category: "MEMBER" },
+        { name: "土反レイ", role: "Storyteller", desc: "物語の深淵を描く。", color: "secondary", icon: "fa-book-open", category: "MEMBER" },
+        { name: "Misa", role: "Creator", desc: "繊細なギミックの魔術師。", color: "red", icon: "fa-star", category: "MEMBER" },
+        { name: "あめあられ", role: "Engineer", desc: "技術で不可能を可能にする。", color: "primary", icon: "fa-microchip", category: "MEMBER" },
+        { name: "きゃわわ", role: "Designer", desc: "ポップで洗練されたデザイン。", color: "secondary", icon: "fa-paint-brush", category: "MEMBER" },
+        { name: "えゆねる", role: "Nazo Creator", desc: "革新的な謎解き体験を提供。", color: "red", icon: "fa-cube", category: "MEMBER" },
+        { name: "Kadi", role: "Creator", desc: "多角的な視点から謎を構築。", color: "primary", icon: "fa-layer-group", category: "MEMBER" },
+        { name: "いおくたん", role: "Engineer", desc: "サーバーサイドの守護者。", color: "secondary", icon: "fa-server", category: "MEMBER" },
+        { name: "けん", role: "Nazo Creator", desc: "シンプルかつ奥深い謎。", color: "red", icon: "fa-shapes", category: "MEMBER" },
+        { name: "すぴか", role: "Creator", desc: "輝くようなアイデアの源泉。", color: "primary", icon: "fa-bolt", category: "MEMBER" }
     ],
 
-
     // ------------------------------------------------------------------
-    // 3. プロジェクト情報
-    // title: タイトル
-    // category: カテゴリ (WEB, GAME, ARG...)
-    // desc: 説明
-    // diff: 難易度 (1-5の数字)
-    // icon: アイコン
-    // locked: true にすると鍵がかかった表示になります
+    // プロジェクト情報
     // ------------------------------------------------------------------
     projects: [
         {
@@ -76,6 +51,20 @@ const CONFIG = {
             diff: 0,
             icon: "fa-lock",
             locked: true
+        },
+        {
+            title: "Logic Archive 01",
+            category: "LINE",
+            desc: "LINEボットを使用した対話型ミステリー。",
+            diff: 2,
+            icon: "fa-comments"
+        },
+        {
+            title: "Midnight Console",
+            category: "GAME",
+            desc: "黒い画面にコマンドを打ち込み、真相を暴くハッキングシミュレータ。",
+            diff: 4,
+            icon: "fa-terminal"
         }
     ]
 };
