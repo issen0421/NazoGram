@@ -22,21 +22,21 @@ const CONFIG = {
     // ------------------------------------------------------------------
     members: [
         {
-            name: "ROOT_ADMIN",
+            name: "一仙",
             role: "Founder / Main Programmer",
             desc: "全てのロジックを統べる管理者。Web実装から謎のコアシステム構築まで担当。",
             color: "primary",
             icon: "fa-code"
         },
         {
-            name: "DESIGN_BOT",
+            name: "しろくま",
             role: "UI/UX Designer",
             desc: "視覚的な謎と洗練されたインターフェースを生成する。色彩と図形の魔術師。",
             color: "secondary",
             icon: "fa-pencil-ruler"
         },
         {
-            name: "GLITCH_MAKER",
+            name: "えゆねる",
             role: "Storyteller",
             desc: "物語のバグ（非日常）を生み出す脚本家。プレイヤーを世界観の深淵へと誘う。",
             color: "red",
