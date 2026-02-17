@@ -32,10 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
      * コンテンツカードのHTMLを生成する関数
      */
     function createContentCard(c) {
-        let colorClass = c.category === 'WEB' ? 'text-nazo-primary border-nazo-primary' : 'text-nazo-secondary border-nazo-secondary';
-        let hoverClass = c.category === 'WEB' ? 'group-hover:text-nazo-primary' : 'group-hover:text-nazo-secondary';
-        let borderHover = c.category === 'WEB' ? 'hover:border-nazo-primary' : 'hover:border-nazo-secondary';
-        let btnColor = c.category === 'WEB' ? 'border-nazo-primary text-nazo-primary' : 'border-nazo-secondary text-nazo-secondary';
+        let colorClass = c.category === 'EVENT' ? 'text-nazo-secondary border-nazo-secondary' : 'text-nazo-primary border-nazo-primary';
+        let btnColor = c.category === 'EVENT' ? 'border-nazo-secondary text-nazo-secondary' : 'border-nazo-primary text-nazo-primary';
 
         // 画像があるかどうかチェック
         let thumbnailHTML;
@@ -43,21 +41,21 @@ document.addEventListener('DOMContentLoaded', () => {
             thumbnailHTML = `<img src="${c.image}" alt="${c.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">`;
         } else {
             // 画像がない場合はアイコン (フォールバック)
-            let icon = c.icon || 'fa-cube'; // デフォルトアイコン
+            let icon = c.icon || 'fa-cube'; 
             thumbnailHTML = `
                 <div class="absolute inset-0 flex items-center justify-center">
-                    <i class="fas ${icon} text-5xl text-gray-700 ${hoverClass} transition-colors duration-500"></i>
+                    <i class="fas ${icon} text-5xl text-gray-700 group-hover:text-white transition-colors duration-500"></i>
                 </div>`;
         }
 
         return `
-        <div class="group bg-nazo-dark border border-gray-800 ${borderHover} transition-all duration-300 overflow-hidden relative rounded cursor-pointer animate-fade-in shadow-lg">
+        <div class="group bg-nazo-dark border border-gray-800 hover:border-gray-600 transition-all duration-300 overflow-hidden relative rounded cursor-pointer animate-fade-in shadow-lg">
             <!-- サムネイルエリア -->
             <div class="aspect-[16/9] bg-gray-900 relative overflow-hidden">
                 ${thumbnailHTML}
                 <!-- オーバーレイ -->
                 <div class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-[2px]">
-                    <span class="border ${btnColor} px-6 py-2 font-mono text-sm tracking-widest bg-black/50">ACCESS</span>
+                    <span class="border ${btnColor} px-6 py-2 font-mono text-sm tracking-widest bg-black/50">VIEW DETAILS</span>
                 </div>
             </div>
             <!-- テキストエリア -->
@@ -90,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
              </a>` : '';
 
         return `
-        <div class="group relative bg-nazo-dark border border-gray-800 p-6 rounded-lg hover:translate-y-[-5px] transition-all duration-300 overflow-hidden animate-fade-in flex flex-col items-center text-center">
+        <div class="group relative bg-nazo-dark border border-gray-800 p-6 rounded-lg hover:border-gray-600 transition-all duration-300 overflow-hidden animate-fade-in flex flex-col items-center text-center">
             <div class="absolute top-2 right-2 opacity-10 group-hover:opacity-30 transition-opacity">
                 <i class="fas ${m.icon} text-6xl ${colorClass}"></i>
             </div>
@@ -124,20 +122,32 @@ document.addEventListener('DOMContentLoaded', () => {
     function createTabs(tabsContainerId, gridContainerId, data, categoryKey, renderFunc) {
         const tabsContainer = document.getElementById(tabsContainerId);
         if (!tabsContainer) return;
-        const categories = ['ALL', ...new Set(data.map(item => item[categoryKey]))].filter(c => c);
+        
+        // カテゴリのセットを定義 (順序固定のため)
+        // ※データから自動抽出も可能ですが、指定された順序(ALL, EVENT, GOODS, OTHERS)を守るために固定リストと照合します
+        const priorityOrder = ['ALL', 'EVENT', 'GOODS', 'OTHERS'];
+        
+        // データ内に存在するカテゴリを抽出
+        const existingCategories = [...new Set(data.map(item => item[categoryKey]))].filter(c => c);
+        
+        // 優先順位リストに基づいて表示するカテゴリを決定 (存在しないカテゴリも表示したい場合は priorityOrder をそのまま使う)
+        // ここでは「データがなくてもボタンは表示する」方針で行きます
+        const categoriesToShow = priorityOrder;
+
         tabsContainer.innerHTML = ''; 
 
-        categories.forEach(cat => {
+        categoriesToShow.forEach(cat => {
             const btn = document.createElement('button');
             btn.className = `tab-btn px-6 py-2 border border-gray-700 rounded-full text-sm font-mono text-gray-400 hover:text-white hover:border-nazo-primary transition-all duration-300 ${cat === 'ALL' ? 'active' : ''}`;
             btn.innerText = cat;
             
             btn.addEventListener('click', () => {
                 tabsContainer.querySelectorAll('.tab-btn').forEach(b => {
-                    b.classList.remove('active', 'bg-nazo-primary/20', 'text-nazo-primary', 'border-nazo-primary');
+                    b.classList.remove('active', 'bg-nazo-primary', 'text-black', 'border-nazo-primary');
                     b.classList.add('text-gray-400', 'border-gray-700');
                 });
-                btn.classList.add('active', 'bg-nazo-primary/20', 'text-nazo-primary', 'border-nazo-primary');
+                // Active Style Update
+                btn.classList.add('active', 'bg-nazo-primary', 'text-black', 'border-nazo-primary');
                 btn.classList.remove('text-gray-400', 'border-gray-700');
                 renderGrid(gridContainerId, data, categoryKey, cat, renderFunc);
             });
@@ -145,18 +155,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         renderGrid(gridContainerId, data, categoryKey, 'ALL', renderFunc);
+        
+        // 初期アクティブスタイル
         const firstBtn = tabsContainer.querySelector('.tab-btn');
         if(firstBtn) {
-            firstBtn.classList.add('bg-nazo-primary/20', 'text-nazo-primary', 'border-nazo-primary');
+            firstBtn.classList.add('bg-nazo-primary', 'text-black', 'border-nazo-primary');
             firstBtn.classList.remove('text-gray-400', 'border-gray-700');
         }
     }
 
     // --- 初期化実行 ---
     if (typeof CONFIG !== 'undefined') {
-        // コンテンツタブの生成 (CONFIG.contents を使用)
         createTabs('content-tabs', 'contents-grid', CONFIG.contents, 'category', createContentCard);
-        // メンバータブの生成
         createTabs('member-tabs', 'members-grid', CONFIG.members, 'category', createMemberCard);
     }
 
