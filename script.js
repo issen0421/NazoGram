@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * メンバーカードのHTMLを生成する関数
+     * メンバーカードのHTMLを生成する関数 (シンプル版 + Xリンク)
      */
     function createMemberCard(m, index) {
         let colorHex = '';
@@ -89,17 +89,32 @@ document.addEventListener('DOMContentLoaded', () => {
         else if(m.color === 'secondary') { colorHex = '#9d00ff'; colorClass = 'text-nazo-secondary'; }
         else { colorHex = '#ff0055'; colorClass = 'text-red-500'; }
 
+        // Xアイコンリンクの生成
+        const xLink = m.xUrl ? 
+            `<a href="${m.xUrl}" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-800 hover:bg-white hover:text-black text-gray-400 transition-all duration-300 group-hover:scale-110">
+                <i class="fa-brands fa-x-twitter"></i>
+             </a>` : '';
+
         return `
-        <div class="group relative bg-nazo-dark border border-gray-800 p-6 rounded-lg hover:translate-y-[-5px] transition-all duration-300 overflow-hidden animate-fade-in">
-            <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-100 transition-opacity">
-                <i class="fas ${m.icon} text-4xl ${colorClass}"></i>
+        <div class="group relative bg-nazo-dark border border-gray-800 p-6 rounded-lg hover:translate-y-[-5px] transition-all duration-300 overflow-hidden animate-fade-in flex flex-col items-center text-center">
+            <!-- 背景の薄いアイコン -->
+            <div class="absolute top-2 right-2 opacity-10 group-hover:opacity-30 transition-opacity">
+                <i class="fas ${m.icon} text-6xl ${colorClass}"></i>
             </div>
-            <div class="w-16 h-16 bg-gray-800 rounded-full mb-4 flex items-center justify-center border-2 border-nazo-dim group-hover:border-[${colorHex}] transition-colors" style="border-color: #586575;">
+            
+            <!-- 番号アイコン -->
+            <div class="relative w-16 h-16 bg-gray-800 rounded-full mb-4 flex items-center justify-center border-2 border-nazo-dim group-hover:border-[${colorHex}] transition-colors z-10" style="border-color: #586575;">
                 <span class="font-mono text-xl text-white">${String(index + 1).padStart(2, '0')}</span>
             </div>
-            <h3 class="text-xl font-bold text-white mb-1 font-mono">${m.name}</h3>
-            <p class="${colorClass} text-sm mb-4 font-mono">${m.role}</p>
-            <p class="text-gray-400 text-sm leading-relaxed">${m.desc}</p>
+            
+            <!-- 名前と役職 -->
+            <h3 class="text-xl font-bold text-white mb-1 font-mono z-10">${m.name}</h3>
+            <p class="${colorClass} text-xs font-mono uppercase tracking-wider z-10">${m.role}</p>
+            
+            <!-- Xリンクボタン -->
+            <div class="z-10">
+                ${xLink}
+            </div>
         </div>`;
     }
 
