@@ -7,11 +7,6 @@ const CONFIG = {
 
     // ------------------------------------------------------------------
     // メンバー情報
-    // name: 名前
-    // color: テーマカラー ('primary', 'secondary', 'red')
-    // image: アイコン画像のファイル名 (例: 'member1.png') ※空欄ならデフォルトアイコン
-    // xUrl: X(Twitter)のプロフィールURL
-    // category: フィルタ用 (LEADER, MEMBER)
     // ------------------------------------------------------------------
     members: [
         { name: "一仙", image: "", color: "primary", category: "LEADER", xUrl: "https://twitter.com/" },
@@ -33,7 +28,7 @@ const CONFIG = {
 
     // ------------------------------------------------------------------
     // コンテンツ情報
-    // category: EVENT, GOODS, CAFE, OTHERS
+    // credits: ["名前1", "名前2"] の形式で関わったメンバー名を入力
     // ------------------------------------------------------------------
     contents: [
         {
@@ -41,77 +36,88 @@ const CONFIG = {
             category: "GOODS",
             image: "", 
             desc: "ボタンを押すだけの謎解き。",
-            diff: 1
+            diff: 1,
+            credits: ["一仙", "しろくま"] 
         },
         {
             title: "MOVE IT",
             category: "GOODS",
             image: "",
             desc: "動かすことで真実が見える。",
-            diff: 3
+            diff: 3,
+            credits: ["YAMASA"]
         },
         {
             title: "SCRATCH",
             category: "GOODS",
             image: "",
             desc: "削って見つける新感覚パズル。",
-            diff: 2
+            diff: 2,
+            credits: ["あせろら", "さっしー"]
         },
         {
             title: "アストロール",
             category: "EVENT",
             image: "",
             desc: "星々を繋ぎ、物語を紡ぐ。",
-            diff: 3
+            diff: 3,
+            credits: ["土反レイ", "Misa"]
         },
         {
             title: "AGAINST",
             category: "EVENT",
             image: "",
             desc: "逆境に立ち向かう謎解き。",
-            diff: 5
+            diff: 5,
+            credits: ["一仙", "あめあられ", "Tohl"]
         },
         {
             title: "DisPlay",
             category: "EVENT",
             image: "",
             desc: "画面の向こう側に隠されたメッセージ。",
-            diff: 4
+            diff: 4,
+            credits: ["きゃわわ", "えゆねる"]
         },
         {
             title: "配置〜ズ",
             category: "CAFE",
             image: "",
             desc: "正しい位置に全てを収めよ。",
-            diff: 2
+            diff: 2,
+            credits: ["けん", "Kadi"]
         },
         {
             title: "変換字",
             category: "CAFE",
             image: "",
             desc: "言葉を変換し、意味を変えろ。",
-            diff: 3
+            diff: 3,
+            credits: ["すぴか", "いおくたん"]
         },
         {
             title: "ナゾトキクエスト",
             category: "CAFE",
             image: "",
             desc: "冒険の旅に出よう。",
-            diff: 2
+            diff: 2,
+            credits: ["一仙", "YAMASA"]
         },
         {
             title: "寿司謎",
             category: "CAFE",
             image: "",
             desc: "へいお待ち！新鮮な謎を一丁。",
-            diff: 1
+            diff: 1,
+            credits: ["あせろら"]
         },
         {
             title: "FALL",
             category: "OTHERS",
             image: "",
             desc: "落ちる、堕ちる、そして見つける。",
-            diff: 4
+            diff: 4,
+            credits: ["一仙"]
         }
     ]
 };
